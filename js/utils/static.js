@@ -1,7 +1,8 @@
+const titleStartImg = "../../image/part1/title.png"
 const imageList = [
     "image/part1/biao.png?v=1",
     "image/part1/talk.png",
-    "image/part1/title.png",
+    titleStartImg,
     "image/part1/zhen1.png",
     "image/part1/zhen2.png",
     "image/part1/hand.png",
@@ -417,14 +418,19 @@ const imageList = [
     "image/part14/y5.png",
     "image/part14/y6.png"
 ]
-const loading_num = document.querySelector('#loading_num')
-const loadimage = new PIXI.loaders.Loader()
-                 .add(imageList)
+imagetest = [
+  "image/part14/y6.png"
+]
+const loadingNum = document.querySelector('#loadingNum')
+const loadImageList = cb => {
+  new PIXI.loaders.Loader()
+                 .add(imagetest)
                  .load(() => {
-                   console.log('全部加载完毕')
-                 })
+                   cb()
+                  })
                  .onProgress
                  .add(function (e) {
                    let percent = Math.round(e.progress)
-                   loading_num.innerText = `${percent}%`
+                   loadingNum.innerText = `${percent}%`
                 })
+}

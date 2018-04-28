@@ -16,14 +16,18 @@
   <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-<div class="loading_wrap center">
+<div class="loading_wrap center" id="loadingWrap">
   <div class="loading_img center">
-    <p class="loading_num" id="loading_num">0%</p>
+    <p class="loading_num" id="loadingNum">0%</p>
     <p class="loading_hand"></p>
   </div>
 </div>
+<div class="main" id="main"></div>
 <script src="./js/pixi/pixi.min.js"></script>
+<script src="./js/utils/createSprite.js"></script>
+<script src="./js/pixi/scroller.js"></script>
 <script src="./js/utils/static.js"></script>
+<script src="./js/utils/resize.js"></script>
 <script src="./js/utils/game.js"></script>
 <script src="./js/index.js"></script>
 </body>

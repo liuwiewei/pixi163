@@ -23,7 +23,10 @@ html, body {
 .loading_wrap {
   width: 100%;
   height: 100%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left:0;
+  background: #fff;
 }
 .loading_img {
   width: 3rem;
@@ -44,4 +47,8 @@ html, body {
   top:0;
   left: 0;
   animation: loading 3s linear infinite;
+}
+.main {
+  width: 100%;
+  height: 100%;
 }
