@@ -1,18 +1,18 @@
-let type = 'WebGL'
-if(!PIXI.utils.isWebGLSupported()){
-  type = "canvas"
-}
-PIXI.utils.sayHello(type)
+import createSprite from './createSprite'
+import {loadImageList, titleStartImg, titleHandImg} from './static'
+import {stageWrap, resize} from './resize'
 
-
-const Game = window.Game = {
+const ww = window.screen.width
+const wh = window.screen.height
+const Game = {
   app: null,
   scroller: null,
   titleStart: null,
-  init () {
+  stageWrap: null,
+  init (Scroller) {
+    this.stageWrap = document.querySelector('#main')
     this.loadImg()
-    this.initStage()
-    resize(this.app, this.scroller, this.titleStart)
+    this.initStage(Scroller)
   },
   loadImg () {
     const loadingWrap = document.querySelector('#loadingWrap')
@@ -23,10 +23,10 @@ const Game = window.Game = {
         loadingWrap.style.display = 'none'
       }, 300)
       // 游戏开始
-      this.play()
+      this.app && this.play()
     })
   },
-  initStage () {
+  initStage (Scroller) {
     const stageW = document.body.clientWidth
     const stageH = document.body.clientHeight
     this.app = new PIXI.Application({
@@ -36,7 +36,7 @@ const Game = window.Game = {
       backgroundColor: '0xffffff',
       // transparent: true
     })
-    this.app && stageWrap.appendChild(this.app.view)
+    this.app && this.stageWrap.appendChild(this.app.view)
 
     // 创建scroller
     this.scroller = new Scroller((left, top, zoom) => {
@@ -50,19 +50,31 @@ const Game = window.Game = {
   },
   play () {
     this.titleAndHand()
-    // const titleContainers = this.titleAndHand()
-    // this.app.stage.addChild(titleContainers)
+    resize(this.app, this.scroller, this.titleStart, this.stageWrap)
+    window.onresize = () => {
+      resize(this.app, this.scroller, this.titleStart, this.stageWrap)
+    }
     
   },
   titleAndHand () {
     const titleContainer = new PIXI.Container()
     titleContainer.x = 0
     titleContainer.y = 0
+    titleContainer.width = 200
+    titleContainer.height = 200
     this.titleStart = createSprite(titleStartImg, {
       x: (window.screen.height - 541) / 2,
-      y: 276
+      y: 150,
+      width: ww / 3 * 2
     })
-    titleContainer.addChild(this.titleStart)
-    return titleContainer
+    const titleHand = createSprite(titleHandImg, {
+      x: (window.screen.height - 83) / 2 + 45,
+      y: 200,
+      width: 80,
+    })
+    const titleHandTween = TweenMax.fromTo(titleHand, 1.5, {x: (ww / 2 + 165)}, {x: (ww /2 + 65), ease:Linear.easeNone}).repeat(-1)
+    titleContainer.addChild(this.titleStart, titleHand)
+    this.app.stage.addChild(titleContainer)
   }
 }
+export default Game
