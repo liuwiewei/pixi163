@@ -1,10 +1,15 @@
 // const titleStartImg = "image/part1/title.png"
-const titleStartImg = "/static/part1/title.png"
-const titleHandImg = '/static/part1/hand.png'
+const titleStartImg = "/static/image/part1/title.png"
+const titleHandImg = '/static/image/part1/hand.png'
+
+const part2Biao = '/static/image/part2/biao.png'
+
+
 const imageList = [
     titleStartImg,
     titleHandImg,
-    // "image/part1/biao.png?v=1",
+
+    part2Biao,
     // "image/part1/talk.png",
     // "image/part1/zhen1.png",
     // "image/part1/zhen2.png",
@@ -440,5 +445,6 @@ const loadImageList = cb => {
 export {
   loadImageList,
   titleStartImg,
-  titleHandImg
+  titleHandImg,
+  part2Biao
 }
