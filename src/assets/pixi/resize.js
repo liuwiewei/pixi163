@@ -12,6 +12,7 @@ const iniH = 640
 let tarW = 0
 let tarH = 0
 
+// 竖屏
 const v = (app, scroller, titleStart, titleHand, stageWrap, scrollPro) => {
   const screenOrientation = "horizontal"
   setTimeout(() => {
@@ -50,6 +51,7 @@ const v = (app, scroller, titleStart, titleHand, stageWrap, scrollPro) => {
   }, timer1Delay)
 }
 
+// 横屏
 const h = (app, scroller, titleStart, titleHand, stageWrap, scrollPro) => {
   setTimeout(() => {
     const ww = window.screen.width

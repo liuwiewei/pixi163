@@ -2,7 +2,7 @@ import createSprite from './createSprite'
 import {loadImageList, titleStartImg, titleHandImg, part2Biao} from './static'
 import {stageWrap, resize} from './resize'
 
-// import Part2 from './part2'
+import Part2 from './part2'
 
 const ww = window.screen.width
 const wh = window.screen.height
@@ -56,24 +56,7 @@ const Game = {
       resize(this.app, this.scroller, this.titleStart, this.titleHand, this.stageWrap, this.scrollPro)
     }
 
-    const part2Container = new PIXI.Container()
-    part2Container.x = 500
-    part2Container.y = 0
-    part2Container.width = 3408
-    part2Container.height = 300
-    part2Container.backgroundColor = '#000'
-
-    const part2BiaoCont = new PIXI.Container()
-    part2BiaoCont.x = 0
-    part2Container.y = 205
-    const part2BiaoBg = createSprite(part2Biao, {
-            x: 0,
-            y: 0
-          })
-
-
-    part2Container.addChild(part2BiaoCont)
-    this.containerWrap.addChild(part2Container)
+    this.containerWrap.addChild(Part2)
     this.app.stage.addChild(this.containerWrap)
     
   },
@@ -123,10 +106,25 @@ const Game = {
       zooming: true,
       bouncing: false
     })
-    document.addEventListener('touchstart', (e) => {
-      this.scroller.doTouchStart(e.touches, e.timeStamp)
-    }, false)
     this.scroller.setDimensions(this.app.view.width, this.app.view.height, this.app.view.height, contentLength)
+
+    let mousedown = false
+    document.addEventListener('touchstart', e => {
+      this.scroller.doTouchStart(e.touches, e.timeStamp)
+      mousedown = true
+    }, false)
+    
+    document.addEventListener('touchmove', e => {
+      if (!mousedown) return
+      this.scroller.doTouchMove(e.touches, e.timeStamp)
+      mousedown = true
+    }, false)
+
+    document.addEventListener('touchend', e => {
+      if (!mousedown) return
+      this.scroller.doTouchEnd(e.timeStamp)
+      mousedown = false
+    }, false)
 
   }
 }
